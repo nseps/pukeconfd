@@ -1,0 +1,25 @@
+# Build binary
+go build -o pukeconfd
+
+# Create interface
+sudo ifconfig eth0:0 169.254.169.254
+
+# Create user-data.yaml
+touch user-data.yaml
+
+# Run the daemon
+sudo ./pukeconfd
+
+# Get image
+wget -qO ubuntu.img https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+wget -qO - wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2 | bzcat >coreos.img
+
+# Create VM disk image
+qemu-img create -b $(pwd)/{ubuntu,coreos}.img -f qcow2 myvm.img
+
+# Create & run the VM
+virt-install --connect qemu:///system --import --name cloudbuzzer --ram 512 --vcpus 1 \
+             --os-type=linux --os-variant=virtio26 --disk path=$(pwd)/myvm.img,format=qcow2,bus=virtio \
+             --vnc --noautoconsole
+
+# Complain because it doesn't work on your machine
