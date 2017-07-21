@@ -15,7 +15,7 @@ type NetworkData struct {
 		ID         string `json:"id"`
 		EthMacAddr string `json:"ethernet_mac_address"`
 		Type       string `json:"type"`
-		// TODO: maybe should be uint?
+		// TODO: maybe mtu should be uint?
 		MTU   string `json:"mtu,omitempty"`
 		VIFid string `json:"vif_id"`
 	} `json:"links,omitempty"`
@@ -29,6 +29,7 @@ type NetworkData struct {
 		Type    string `json:"type"`
 		Address string `json:"address"`
 	} `json:"services,omitempty"`
+	// TODO: find out if more
 }
 
 type VendorData struct {
@@ -64,4 +65,5 @@ type UserData struct {
 		Permissons string `yaml:"permmisions,omitempty"`
 		Encoding   string `yaml:"encoding,omitempty"`
 	} `yaml:"write_files,omitempty"`
+	// Moarrrrr
 }

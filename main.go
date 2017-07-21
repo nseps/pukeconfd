@@ -18,6 +18,7 @@ func main() {
 	http.HandleFunc("/openstack/latest/meta_data.json", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s requesting meta_data.json", r.RemoteAddr)
 
+		// We need to return at least uuid. Hostname can also be overwritten/set by user_data
 		meta := MetaData{
 			UUID:     "dc6302fc-6db0-11e7-882e-e30d38b305d3",
 			Hostname: "mahhostnm",
